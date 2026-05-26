@@ -9,9 +9,9 @@ markdown: kramdown
 theme: jekyll-theme-minima
 
 # Site settings
-url: "https://yourusername.github.io"
-baseurl: "/finance_portfolio"
-repository: yourusername/finance_portfolio
+url: "https://cooklab12.github.io"
+baseurl: "/finance-portfolio"
+repository: cooklab12/finance-portfolio
 
 # Posts/Collections
 collections:
