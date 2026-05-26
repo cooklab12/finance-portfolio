@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Home
+title: Shweta - Home
 permalink: /
 ---
 
 <!-- Hero Section -->
 <div class="hero-section">
-    <h1>💼 Finance Portfolio</h1>
+    <h1>💼 Shweta's Finance Portfolio</h1>
     <p>Small Business Bookkeeping, Accounting & AI-Driven Financial Solutions</p>
     <p style="opacity: 0.85; margin-top: 15px;">Showcasing expertise in financial reporting, reconciliation, automation and intelligent agents</p>
-    <a href="/finance_portfolio/pages/projects" class="btn btn-light btn-lg mt-4">Explore Projects →</a>
+    <a href="{{ '/pages/projects' | relative_url }}" class="btn btn-light btn-lg mt-4">Explore Projects →</a>
 </div>
 
 <!-- Quick Stats -->
@@ -77,7 +77,7 @@ permalink: /
     <div class="text-center">
         <h2 style="color: #2c3e50;">Ready to see more?</h2>
         <p class="fs-5 text-muted mt-3">Browse all projects and learn how I solve real business finance challenges.</p>
-        <a href="/finance_portfolio/pages/projects" class="btn btn-primary btn-lg mt-3">View All Projects</a>
+        <a href="{{ '/pages/projects' | relative_url }}" class="btn btn-primary btn-lg mt-3">View All Projects</a>
     </div>
 </div>
 

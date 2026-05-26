@@ -1,17 +1,17 @@
 ---
 layout: default
-title: About Me
+title: Shweta - About Me
 permalink: /pages/about
 ---
 
 <div class="about-intro">
     <h1>About Me</h1>
-    <p class="lead">Finance Professional | Bookkeeper | Accountant | AI Enthusiast</p>
+    <p class="lead">Shweta | Finance Professional | Bookkeeper | Accountant | AI Enthusiast</p>
 </div>
 
 ## 👤 Who I Am
 
-I'm a dedicated finance professional with expertise in small business bookkeeping, accounting, and financial operations. With a passion for solving complex financial challenges and an interest in AI automation, I combine traditional accounting principles with modern technology solutions.
+I'm Shweta, a dedicated finance professional with expertise in small business bookkeeping, accounting, and financial operations. With a passion for solving complex financial challenges and an interest in AI automation, I combine traditional accounting principles with modern technology solutions.
 
 My focus is on helping small businesses streamline their financial processes, improve accuracy, and gain actionable insights through both manual expertise and intelligent automation.
 
@@ -82,4 +82,4 @@ Each project in my portfolio demonstrates:
 
 Interested in discussing finance solutions, accounting automation, or AI applications in finance? Feel free to reach out!
 
-[💬 Get in Touch](/finance_portfolio/pages/contact)
+[💬 Get in Touch]({{ '/pages/contact' | relative_url }})

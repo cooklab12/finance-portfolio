@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contact
+title: Shweta - Contact
 permalink: /pages/contact
 ---
 
@@ -8,7 +8,7 @@ permalink: /pages/contact
     <div class="col-md-8 offset-md-2">
         <div class="contact-form">
             <h1 class="mb-4">📧 Get In Touch</h1>
-            <p class="text-muted mb-4">Interested in discussing finance solutions, automation, or collaboration? I'd love to hear from you!</p>
+            <p class="text-muted mb-4">Interested in discussing finance solutions, automation, or collaboration with Shweta? I'd love to hear from you!</p>
 
             <!-- Contact Form (Using Formspree) -->
             <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">

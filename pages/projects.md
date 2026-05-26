@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Projects
+title: Shweta - Projects
 permalink: /pages/projects
 ---
 
@@ -117,4 +117,4 @@ Need a specific solution? Find the relevant project:
 
 ---
 
-**Want to discuss a specific project or explore how these solutions apply to your business?** [Get in touch](/finance_portfolio/pages/contact)
+**Want to discuss a specific project or explore how these solutions apply to your business?** [Get in touch]({{ '/pages/contact' | relative_url }})
