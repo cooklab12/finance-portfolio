@@ -1,0 +1,16 @@
+account_id,account_name,account_type,january_balance,february_balance,march_balance
+1000,Cash - Checking,Asset,45200,52300,48500
+1100,Accounts Receivable,Asset,78500,82100,85200
+1200,Inventory,Asset,125000,128000,130500
+1300,Prepaid Expenses,Asset,5300,5200,4800
+2000,Accounts Payable,Liability,52000,55300,58200
+2100,Short-term Debt,Liability,30000,30000,30000
+3000,Common Stock,Equity,100000,100000,100000
+3100,Retained Earnings,Equity,99200,102500,105800
+4000,Product Revenue,Revenue,120000,125000,128000
+4100,Service Revenue,Revenue,45000,48000,52000
+5000,Cost of Goods Sold,Expense,75000,76000,77500
+5100,Salaries & Wages,Expense,45000,45000,45000
+5200,Rent,Expense,8000,8000,8000
+5300,Marketing,Expense,6200,5500,6800
+5400,Utilities,Expense,2350,2400,2450

@@ -1,0 +1,11 @@
+invoice_id,customer_id,customer_name,invoice_date,due_date,amount,status,description
+INV-001,CUST-001,ABC Corporation,2026-01-05,2026-02-04,2500.00,paid,Website Design Services
+INV-002,CUST-002,XYZ Industries,2026-01-08,2026-02-07,1800.00,paid,Consulting Services
+INV-003,CUST-003,Global Solutions,2026-01-12,2026-02-11,3200.00,paid,Software Development
+INV-004,CUST-001,ABC Corporation,2026-01-15,2026-02-14,1500.00,overdue,Maintenance Services
+INV-005,CUST-004,Tech Startups LLC,2026-01-20,2026-02-19,4200.00,unpaid,Custom Development
+INV-006,CUST-002,XYZ Industries,2026-01-25,2026-02-24,2100.00,unpaid,Technical Support
+INV-007,CUST-005,Enterprise Corp,2026-02-01,2026-03-02,5600.00,unpaid,Implementation Services
+INV-008,CUST-003,Global Solutions,2026-02-05,2026-03-06,1200.00,unpaid,Training Services
+INV-009,CUST-001,ABC Corporation,2026-02-10,2026-03-11,2800.00,unpaid,Optimization Work
+INV-010,CUST-006,Innovate Inc,2026-02-15,2026-03-16,3500.00,unpaid,Integration Services

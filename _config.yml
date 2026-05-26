@@ -1,0 +1,43 @@
+title: Finance Portfolio
+author: Finance Professional
+description: >
+  Small Business Bookkeeping, Accounting & AI-Driven Financial Solutions.
+  Showcasing expertise in financial reporting, reconciliation, automation and AI agents.
+
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-minima
+
+# Site settings
+url: "https://yourusername.github.io"
+baseurl: "/finance_portfolio"
+repository: yourusername/finance_portfolio
+
+# Posts/Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "project"
+
+# Navigation
+header_pages:
+  - pages/about.md
+  - pages/projects.md
+  - pages/contact.md
+
+# Social links
+social_links:
+  github: yourusername
+  linkedin: yourusername
+
+# Other
+paginate: 5
+paginate_path: "/page:num/"
