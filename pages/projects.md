@@ -5,17 +5,18 @@ permalink: /pages/projects
 ---
 
 <div class="mb-5">
-    <h1 class="mb-3">📋 All Projects</h1>
-    <p class="lead text-muted">A showcase of bookkeeping, accounting, and AI-powered financial solutions for small businesses.</p>
+    <h1 class="mb-3">📋 My Project Portfolio</h1>
+    <p class="lead text-muted">A showcase of practical solutions I've built – demonstrating hands-on expertise in bookkeeping, accounting, and AI-powered financial automation for small businesses.</p>
+    <p class="text-muted">Each project represents real problem-solving, technical implementation, and a commitment to delivering tangible results. I don't just study finance – I build solutions.</p>
 </div>
 
 <!-- Filter Tabs -->
 <div class="mb-4">
     <div class="btn-group" role="group">
-        <a href="#all" class="btn btn-outline-secondary active" onclick="filterProjects('all')">All (7)</a>
+        <a href="#all" class="btn btn-outline-secondary active" onclick="filterProjects('all')">All Projects (7)</a>
         <a href="#bookkeeping" class="btn btn-outline-secondary" onclick="filterProjects('bookkeeping')">Bookkeeping (3)</a>
         <a href="#accounting" class="btn btn-outline-secondary" onclick="filterProjects('accounting')">Accounting (2)</a>
-        <a href="#ai" class="btn btn-outline-secondary" onclick="filterProjects('ai')">AI-Powered (2)</a>
+        <a href="#ai" class="btn btn-outline-secondary" onclick="filterProjects('ai')">🤖 AI-Powered (2)</a>
     </div>
 </div>
 
@@ -29,22 +30,22 @@ permalink: /pages/projects
         </div>
         <div class="project-card-body">
             <p>{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
-            
+
             <div class="project-badges">
                 {% if post.category %}
-                    <span class="badge" style="background-color: {% if post.category == 'Bookkeeping' %}#3498db{% elsif post.category == 'Accounting' %}#9b59b6{% endif %}">
+                    <span class="badge" style="background-color: {% if post.category == 'Bookkeeping' %}#667eea{% elsif post.category == 'Accounting' %}#764ba2{% endif %}">
                         📊 {{ post.category }}
                     </span>
                 {% endif %}
                 {% if post.ai_project %}
-                    <span class="badge bg-success">🤖 AI-Powered</span>
+                    <span class="badge" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🤖 AI-Powered</span>
                 {% endif %}
             </div>
 
             {% if post.tools %}
                 <div class="mt-3 pt-2" style="border-top: 1px solid #eee;">
                     <small class="text-muted">
-                        <strong>Tools:</strong> 
+                        <strong>Tools:</strong>
                         {% for tool in post.tools limit: 3 %}
                             {{ tool }}{% unless forloop.last %}, {% endunless %}
                         {% endfor %}
@@ -64,11 +65,11 @@ permalink: /pages/projects
 function filterProjects(category) {
     const cards = document.querySelectorAll('.project-card');
     const buttons = document.querySelectorAll('.btn-group .btn');
-    
+
     // Update button states
     buttons.forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
-    
+
     // Filter cards
     cards.forEach(card => {
         if (category === 'all' || card.dataset.category === category) {
@@ -85,36 +86,56 @@ function filterProjects(category) {
 ## 📊 Project Categories
 
 ### Bookkeeping (3 Projects)
-Focused on core financial record-keeping and accounting fundamentals:
-- Invoice & Bill Management
-- General Ledger Reconciliation
-- Financial Report Generation
+Core financial record-keeping and accounting fundamentals:
+- **Invoice & Bill Management** – Streamlined tracking and organization
+- **General Ledger Reconciliation** – Accurate matching and validation
+- **Financial Report Generation** – Automated P&L, Balance Sheet, and more
 
 ### Accounting (2 Projects)
 Specialized accounting functions and financial analysis:
-- Payroll Processing & Expense Tracking
-- Bank Reconciliation & Matching
+- **Payroll Processing & Expense Tracking** – Complete payroll workflow
+- **Bank Reconciliation & Matching** – Automated account balancing
 
 ### AI-Powered (2 Projects)
 Intelligent automation bringing efficiency to finance:
-- Receipt Classifier AI (OCR + Auto-Categorization)
-- Tax Deduction & Compliance Agent
+- **Receipt Classifier AI** – OCR + Auto-Categorization (80% faster processing!)
+- **Tax Deduction & Compliance Agent** – Intelligent tax optimization
 
 ---
 
-## 🎯 Browse by Problem Solved
+## 🎯 Browse by Challenge Solved
 
 Need a specific solution? Find the relevant project:
 
-| Challenge | Related Projects |
-|-----------|-----------------|
-| Manage invoices & payments | Invoice & Bill Management |
-| Reconcile accounts | General Ledger, Bank Reconciliation |
-| Generate financial statements | Financial Report Generator |
-| Process payroll | Payroll Processing System |
-| Classify expenses | Receipt Classifier AI |
-| Optimize taxes | Tax Deduction Agent |
+| Business Challenge | My Solution |
+|-------------------|-------------|
+| Managing invoices & payments efficiently | Invoice & Bill Management System |
+| Reconciling accounts accurately | General Ledger, Bank Reconciliation |
+| Generating financial statements quickly | Financial Report Generator |
+| Processing payroll reliably | Payroll Processing System |
+| Classifying expenses automatically | Receipt Classifier AI |
+| Optimizing tax deductions | Tax Deduction Agent |
 
 ---
 
-**Want to discuss a specific project or explore how these solutions apply to your business?** [Get in touch]({{ '/pages/contact' | relative_url }})
+## 💡 What These Projects Demonstrate
+
+- **Practical Skills**: Not just theoretical knowledge – I build working solutions
+- **Problem-Solving**: Each project addresses a real business pain point
+- **Technical Depth**: Using modern tools and approaches (Python, AI, automation)
+- **Business Understanding**: Solutions that consider real-world requirements
+- **Innovation**: Combining traditional finance with cutting-edge technology
+
+---
+
+## 🚀 Looking to Collaborate?
+
+I'm always open to discussing how my project experience can translate to solving YOUR business challenges. Whether you're looking for someone to:
+- Take on bookkeeping and accounting responsibilities
+- Build automation solutions for financial processes
+- Contribute to fintech projects
+- Bring a tech-forward perspective to your finance team
+
+I'm ready to contribute, learn, and make an impact.
+
+**Let's discuss how I can help!** [Get in Touch]({{ '/pages/contact' | relative_url }})
