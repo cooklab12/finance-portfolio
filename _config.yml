@@ -6,12 +6,12 @@ description: >
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-minima
+theme: minima
 
 # Site settings
 url: "https://cooklab12.github.io"
 baseurl: "/finance-portfolio"
-repository: cooklab12/finance-portfolio
+repository: yourusername/finance-portfolio
 
 # Posts/Collections
 collections:
