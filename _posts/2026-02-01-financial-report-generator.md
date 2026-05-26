@@ -12,12 +12,13 @@ impact: Automated monthly financial reporting
 problem_statement: "Creating financial statements (P&L, Balance Sheet, Trial Balance) is a manual process requiring hours of compilation and validation. Reports are static documents that take days to produce, slowing down business decisions."
 
 tools:
-  - Python
-  - SQL
-  - pandas
-  - openpyxl
-  - SQLite
-  - Jinja2 (templating)
+  - Financial Reporting Templates
+  - Excel Pivot Tables
+  - Chart of Accounts
+  - General Ledger
+  - Variance Analysis Spreadsheets
+  - Budget vs. Actual Reports
+  - Accounting Principles Reference
 
 features:
   - Income Statement (P&L) generation
@@ -40,8 +41,8 @@ files:
     url: "/assets/files/projects/sample_pl_statement.xlsx"
   - name: "Sample Balance Sheet"
     url: "/assets/files/projects/sample_balance_sheet.xlsx"
-  - name: "Report Generation Code"
-    url: "/assets/files/projects/report_generator.py"
+  - name: "Variance Analysis Report"
+    url: "/assets/files/projects/variance_analysis.xlsx"
 
 excerpt: "Automated financial statement generation (P&L, Balance Sheet, Trial Balance) with variance analysis and multi-period comparisons."
 ---
@@ -49,29 +50,29 @@ excerpt: "Automated financial statement generation (P&L, Balance Sheet, Trial Ba
 ## Overview
 
 Small business owners and accountants need financial statements for:
-- 📋 Tax filing
-- 💰 Bank applications
-- 📊 Stakeholder reporting
-- 🎯 Business decision-making
-- 🏦 Investor presentations
+- Tax filing
+- Bank applications
+- Stakeholder reporting
+- Business decision-making
+- Investor presentations
 
 However, creating these reports manually involves:
-- ❌ Pulling data from multiple sources
-- ❌ Manual calculations prone to errors
-- ❌ Hours of formatting and validation
-- ❌ Inconsistent presentation
-- ❌ Delays in reporting (days after month-end)
+- Pulling data from multiple sources
+- Manual calculations prone to errors
+- Hours of formatting and validation
+- Inconsistent presentation
+- Delays in reporting (days after month-end)
 
 ## Solution
 
-I built a **Financial Report Generator** that automates the creation of professional financial statements from GL data.
+I developed a comprehensive **Financial Report Generator** that automates the creation of professional financial statements from General Ledger data.
 
 ### Supported Reports
 
 1. **Income Statement (P&L)**
    - Revenue by category
    - Operating expenses
-   - COGS calculation
+   - Cost of Goods Sold calculation
    - Net income
    - Gross margin analysis
    - Period-over-period comparison
@@ -103,89 +104,31 @@ I built a **Financial Report Generator** that automates the creation of professi
    - Variance percentages
    - Top variance highlights
 
-## Technical Architecture
+## Accounting Principles Applied
 
-```
-GL Data (SQLite)
-    ↓
-Account Classification
-    ↓
-GL Balance Calculations
-    ↓
-Report Templates
-    ↓
-Variance Analysis
-    ↓
-Format & Export (PDF, Excel)
-```
+### Revenue Recognition
+- Accrual-based revenue recognition per GAAP
+- Recognition when earned, not when received
+- Proper classification of revenue streams
+- Revenue recognition rules applied consistently
 
-### Core Algorithm
+### Expense Matching Principle
+- Expenses matched to revenue generation periods
+- Prepaid expenses amortized appropriately
+- Accrued expenses recorded when incurred
+- Depreciation allocated over useful life
 
-```python
-class FinancialReportGenerator:
-    
-    def get_account_balance(self, account_id, as_of_date):
-        """Get balance for specific account as of date"""
-        query = """
-        SELECT SUM(debit - credit) as balance
-        FROM gl_entries
-        WHERE account_id = ? AND entry_date <= ?
-        """
-        return execute_query(query)
-    
-    def generate_pl_statement(self, period_start, period_end):
-        """Generate Income Statement"""
-        revenues = sum all revenue accounts (4000-4999)
-        expenses = sum all expense accounts (5000-5999)
-        net_income = revenues - expenses
-        return format_statement(revenues, expenses, net_income)
-    
-    def generate_balance_sheet(self, as_of_date):
-        """Generate Balance Sheet"""
-        assets = sum asset accounts (1000-1999)
-        liabilities = sum liability accounts (2000-2999)
-        equity = sum equity accounts (3000-3999)
-        return format_statement(assets, liabilities, equity)
-```
+### Asset Valuation
+- Historical cost principle maintained
+- Depreciation methods applied (straight-line, accelerated)
+- Accumulated depreciation tracked separately
+- Asset impairment considerations
 
-## Implementation Features
-
-### 1. Automated GL Data Retrieval
-```python
-# Pull GL balances efficiently
-gl_balances = fetch_gl_balances_by_period(start_date, end_date)
-gl_ytd = fetch_gl_balances_ytd(current_date)
-```
-
-### 2. Account Classification
-```python
-account_types = {
-    '1000-1999': 'Assets',
-    '2000-2999': 'Liabilities',
-    '3000-3999': 'Equity',
-    '4000-4999': 'Revenue',
-    '5000-5999': 'Expenses'
-}
-```
-
-### 3. Variance Calculations
-```python
-def calculate_variance(actual, budget):
-    variance = actual - budget
-    variance_pct = (variance / budget) * 100 if budget != 0 else 0
-    return {
-        'amount': variance,
-        'percent': variance_pct,
-        'flag': 'high' if abs(variance_pct) > 10 else 'normal'
-    }
-```
-
-### 4. Report Formatting
-- Professional Excel formatting
-- PDF generation with headers/footers
-- Configurable chart generation
-- Multi-currency support
-- Department/location breakdowns
+### Liability Recognition
+- Current vs. long-term liability classification
+- Accrued liabilities for known expenses
+- Debt service schedules tracked
+- Contingent liability assessment
 
 ## Sample Reports
 
@@ -253,32 +196,98 @@ Total Equity                         $202,000        $199,200
 TOTAL LIABILITIES & EQUITY           $359,000        $352,700
 ```
 
+### Cash Flow Statement Example
+
+```
+ACME Corporation
+Cash Flow Statement
+For the Period Ended January 31, 2026
+
+OPERATING ACTIVITIES:
+Net Income                                        $30,950
+Adjustments to Reconcile Net Income:
+  Depreciation                                     $3,000
+  Increase in Accounts Receivable                ($6,500)
+  Decrease in Inventory                             $3,000
+  Increase in Accounts Payable                     $3,500
+  Decrease in Prepaid Expenses                       $900
+Net Cash from Operating Activities                $34,850
+
+INVESTING ACTIVITIES:
+  Equipment Purchases                            ($10,000)
+Net Cash from Investing Activities               ($10,000)
+
+FINANCING ACTIVITIES:
+  Debt Repayment                                  ($5,000)
+Net Cash from Financing Activities               ($5,000)
+
+NET CHANGE IN CASH                               $19,850
+Cash at Beginning of Period                      $25,350
+Cash at End of Period                            $45,200
+```
+
+## Variance Analysis Methodology
+
+### Budget vs. Actual Analysis
+- Percentage variance calculation: (Actual - Budget) / Budget
+- Materiality threshold: Variances > 10% flagged
+- Favorable vs. unfavorable classification
+- Root cause identification for significant variances
+
+### Period-over-Period Comparison
+- Month-over-month trends
+- Year-over-year comparisons
+- Seasonal adjustments
+- Rolling 12-month averages
+
+### Key Performance Indicators
+- Gross margin percentage
+- Operating margin
+- Net profit margin
+- Current ratio
+- Debt-to-equity ratio
+- Accounts receivable turnover
+- Inventory turnover
+
 ## Business Impact
 
-⏱️ **Time Savings:**
-- **Report production time:** 6+ hours → 15 minutes
-- **Error checking time:** 2+ hours → 0 (automated validation)
-- **Monthly reporting:** Same-day generation possible
+Time Savings:
+- Report production time: 6+ hours → 15 minutes
+- Error checking time: 2+ hours → 0 (automated validation)
+- Monthly reporting: Same-day generation possible
 
-📊 **Reporting Benefits:**
+Reporting Benefits:
 - Consistent format every month
 - Real-time financial visibility
 - Accurate calculations (no manual errors)
 - Easy to compare periods
 - Professional appearance for stakeholders
 
-💼 **Business Decision Impact:**
+Business Decision Impact:
 - Faster access to financial data
 - Enables more frequent reporting (weekly vs. monthly)
 - Better cash management insights
 - Improved budget tracking
 
-## Export Formats
+## Compliance Considerations
 
-- **Excel**: Formatted with charts, multiple sheets, pivot tables
-- **PDF**: Professional presentation format with company branding
-- **CSV**: For data analysis in other tools
-- **JSON**: For API integration
+### GAAP Compliance
+- Accrual accounting principles
+- Revenue recognition standards
+- Expense matching principle
+- Consistency in presentation
+
+### Audit Trail
+- Source document traceability
+- Changes documented
+- Approval workflows
+- Retention policies maintained
+
+### Tax Considerations
+- Taxable income calculations
+- Deductible expense identification
+- Depreciation schedules
+- Tax basis tracking
 
 ## Key Learnings
 
@@ -296,3 +305,16 @@ TOTAL LIABILITIES & EQUITY           $359,000        $352,700
 - Automated ratio analysis
 - Comparison to industry benchmarks
 - Multi-entity consolidation
+
+## Demonstrates Expertise In
+
+- Financial statement preparation (P&L, Balance Sheet, Cash Flow)
+- GAAP accounting principles and standards
+- Revenue recognition and expense matching
+- Asset valuation and depreciation methods
+- Variance analysis and budgeting
+- Chart of Accounts design and maintenance
+- Financial ratio analysis
+- Cash flow management
+- Audit trail documentation
+- Month-end closing procedures

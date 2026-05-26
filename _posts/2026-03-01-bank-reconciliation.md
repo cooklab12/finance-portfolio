@@ -12,11 +12,14 @@ impact: 50% faster bank reconciliation, eliminated discrepancies
 problem_statement: "Monthly bank reconciliation requires matching hundreds of bank transactions with GL entries, finding outstanding checks, and identifying discrepancies. Manual process is tedious, error-prone, and delays financial closing."
 
 tools:
-  - Python
-  - SQL
-  - pandas
-  - fuzzy matching libraries
-  - SQLite
+  - Bank Statement Templates
+  - Reconciliation Spreadsheets
+  - Outstanding Check Registers
+  - Deposit in Transit Logs
+  - Exception Tracking Forms
+  - Variance Analysis Reports
+  - GL Transaction Reports
+  - Cash Balance Verification
 
 features:
   - Automated bank statement import (CSV, OFX)
@@ -60,16 +63,16 @@ Bank reconciliation is a critical accounting control and a monthly requirement. 
 8. Get approval
 
 **Challenges with manual process:**
-- ❌ Hundreds of transactions to match manually
-- ❌ Easy to miss matches (typos in descriptions)
-- ❌ Time-consuming investigation of discrepancies
-- ❌ Difficult to track adjustments
-- ❌ Delays financial statement closing
-- ❌ Human error (missed items, incorrect matches)
+- Hundreds of transactions to match manually
+- Easy to miss matches (typos in descriptions)
+- Time-consuming investigation of discrepancies
+- Difficult to track adjustments
+- Delays financial statement closing
+- Human error (missed items, incorrect matches)
 
 ## Solution
 
-I built an **Automated Bank Reconciliation System** that:
+I developed an **Automated Bank Reconciliation System** that:
 1. Imports bank statements automatically
 2. Matches transactions intelligently
 3. Flags discrepancies
@@ -86,102 +89,84 @@ I built an **Automated Bank Reconciliation System** that:
 - **Field mapping**: Handles different statement formats
 
 #### 2. Intelligent Matching Engine
-```python
-def match_transactions(bank_txns, gl_txns):
-    """
-    Match bank transactions with GL entries using:
-    - Exact amount match
-    - Date proximity (±2 days for timing)
-    - Description similarity (fuzzy matching)
-    - Transaction type (debit/credit)
-    """
-    matched = []
-    unmatched_bank = []
-    unmatched_gl = []
-    
-    for bank_txn in bank_txns:
-        # Look for GL transactions matching this bank transaction
-        candidates = find_candidates(bank_txn, gl_txns)
-        
-        if candidates:
-            best_match = rank_and_select_match(bank_txn, candidates)
-            matched.append((bank_txn, best_match))
-        else:
-            unmatched_bank.append(bank_txn)
-    
-    return matched, unmatched_bank, unmatched_gl
-```
+
+**Matching Criteria:**
+- Exact amount match
+- Date proximity (±2 days for timing differences)
+- Description similarity (handling variations)
+- Transaction type (debit/credit)
+- Check number matching
+- Reference number cross-reference
+
+**Matching Hierarchy:**
+
+Step 1: Exact Match (high confidence)
+- Amount matches exactly
+- Date within ±1 day
+- Description similarity > 90%
+- Automatically matched
+
+Step 2: Fuzzy Match (medium confidence)
+- Amount within ±$0.01 tolerance
+- Date within ±2 days
+- Description similarity > 75%
+- Flag for review or auto-match
+
+Step 3: Unmatched Items (exceptions)
+- No matching transaction found
+- Investigate and categorize
 
 #### 3. Outstanding Item Identification
-```python
-Outstanding Checks:
-  - GL entries showing check disbursement
-  - Not yet cleared by bank
-  - Marked as "Outstanding" in reconciliation
 
-Deposits in Transit:
-  - GL deposits recorded
-  - Not yet showing on bank statement
-  - Typically clear within 1-2 days
-```
+**Outstanding Checks:**
+- GL entries showing check disbursement
+- Not yet cleared by bank
+- Marked as "Outstanding" in reconciliation
+- Typically clear within 5-10 business days
+
+**Deposits in Transit:**
+- GL deposits recorded
+- Not yet showing on bank statement
+- Typically clear within 1-2 days
+- End-of-month deposits common
 
 #### 4. Reconciliation Calculation
-```
-Bank Statement Balance:          $50,000.00
-Add: Deposits in Transit          $2,500.00
-Less: Outstanding Checks         ($1,200.00)
-Reconciled Balance:              $51,300.00
 
-GL Cash Balance:                 $51,300.00
-Status: ✓ RECONCILED
-```
+Bank-side adjustments:
+- Start with bank statement balance
+- Add deposits in transit
+- Subtract outstanding checks
+- Result: Adjusted bank balance
 
-## Technical Implementation
+GL-side adjustments:
+- Start with GL cash balance
+- Add bank-initiated credits (interest, deposits)
+- Subtract bank-initiated debits (fees, service charges)
+- Result: Adjusted GL balance
 
-### Matching Algorithm
+**Balancing:** Adjusted bank balance must equal adjusted GL balance
 
-```
-STEP 1: Exact Match (high confidence)
-  - Amount matches exactly
-  - Date within ±1 day
-  - Description similarity > 90%
-  → Automatically matched
+## Common Reconciliation Items
 
-STEP 2: Fuzzy Match (medium confidence)
-  - Amount within ±$0.01 tolerance
-  - Date within ±2 days
-  - Description similarity > 75%
-  → Flag for review or auto-match
+### Timing Differences
+- Deposits in transit: GL records deposit before bank processes
+- Outstanding checks: GL records check before bank clears
+- Electronic transfers: Same-day vs. next-day posting
+- ACH debits/credits: Processing time variations
 
-STEP 3: Unmatched Items (exceptions)
-  - No matching transaction found
-  → Investigate and categorize
-```
+### Bank-Initiated Transactions
+- Bank service fees: $10-50/month
+- Interest income: Varies by balance
+- NSF check fees: $25-35 per returned check
+- Wire transfer fees: $15-50 per transfer
+- Overdraft fees: $30-35 per occurrence
 
-### Data Structure
-
-```python
-class BankTransaction:
-    transaction_date: date
-    description: str
-    amount: float
-    transaction_type: str  # 'debit' or 'credit'
-    reference: str  # Check #, transaction ID
-
-class GLTransaction:
-    entry_date: date
-    description: str
-    account_id: str
-    debit_amount: float
-    credit_amount: float
-    reference: str  # Check #, invoice #
-
-class ReconciliationMatch:
-    bank_txn: BankTransaction
-    gl_txn: GLTransaction
-    match_score: float  # 0-100
-    confidence: str  # 'high', 'medium', 'low'
-```
+### Errors and Adjustments
+- Transposition errors: Digits reversed in amount
+- Check amounts: Different amount than GL record
+- Duplicate entries: Same transaction recorded twice
+- Missing entries: Transaction not recorded in GL
+- Wrong GL account: Misclassified transaction
 
 ## Sample Reconciliation Report
 
@@ -240,11 +225,22 @@ UNMATCHED ITEMS REQUIRING INVESTIGATION:
 Bank Transactions Not in GL:
 1. Check #5678 - $1,200.00 (Jan 15)
    Issue: Check returned as NSF, not recorded in GL
-   Action: Record NSF fee and clearing
+   Action: Record NSF fee and clear in GL
+   Accounting Entry:
+     Debit: Accounts Receivable   $1,200.00
+     Debit: NSF Expense               $25.00
+       Credit: Cash                   $1,225.00
 
 2. Electronic transfer - $250.00 (Jan 22)
    Issue: Description unclear, potential duplicate
    Action: Contact bank for clarification
+
+3. Monthly service charge - $15.00 (Jan 31)
+   Issue: Bank fee not recorded in GL
+   Action: Record bank fee expense
+   Accounting Entry:
+     Debit: Bank Charges Expense   $15.00
+       Credit: Cash                 $15.00
 
 GL Transactions Not Cleared by Bank:
 1. Deposit - $5,000.00 (Jan 30)
@@ -254,41 +250,74 @@ GL Transactions Not Cleared by Bank:
 2. Check #998 - $800.00 (Jan 15)
    Issue: Recorded in GL but not cleared by bank
    Action: Likely outstanding check, investigate with recipient
+   Follow-up: Contact payee to verify receipt
 ```
+
+## Variance Analysis
+
+### Types of Variances
+
+**Positive Variance:**
+- Bank balance higher than GL
+- Possible causes: Deposits in transit, GL error (understated deposits)
+
+**Negative Variance:**
+- Bank balance lower than GL
+- Possible causes: Outstanding checks, bank fees not recorded, GL error (overstated deposits)
+
+### Investigation Protocol
+
+1. **Verify amounts**: Check transposition errors
+2. **Verify dates**: Confirm transaction timing
+3. **Check for duplicates**: Ensure no double-counting
+4. **Review GL entries**: Confirm proper account coding
+5. **Contact bank**: Clarify unclear transactions
 
 ## Business Impact
 
-⏱️ **Time Savings:**
-- **Reconciliation time:** 4 hours → 2 hours per month
-- **Investigation time:** 1 hour → 15 minutes
-- **Monthly total savings:** ~6 hours/month = ~72 hours/year
+Time Savings:
+- Reconciliation time: 4 hours → 2 hours per month
+- Investigation time: 1 hour → 15 minutes
+- Monthly total savings: ~6 hours/month = ~72 hours/year
 
-✅ **Accuracy Improvements:**
-- **Automatic matching:** 95%+ of routine transactions
-- **Error reduction:** Manual errors nearly eliminated
-- **Audit-ready:** Complete documentation of reconciliation process
+Accuracy Improvements:
+- Automatic matching: 95%+ of routine transactions
+- Error reduction: Manual errors nearly eliminated
+- Audit-ready: Complete documentation of reconciliation process
 
-🎯 **Process Improvements:**
+Process Improvements:
 - Real-time matching feedback
 - Clear exception reporting
 - Historical tracking of reconciliation
 - Quick identification of problem areas
 
-## Integration with GL System
+## Reconciliation Controls
 
-```
-Bank Statement (CSV) → Import & Parse
-                          ↓
-                   Match with GL
-                          ↓
-              Categorize Unmatched Items
-                          ↓
-              Generate Reconciliation Report
-                          ↓
-         Create GL Adjustment Entries (if needed)
-                          ↓
-         Post Reconciliation to GL
-```
+### Internal Controls
+- Segregation of duties: Different people record transactions and reconcile
+- Management review: Approval required for adjustments
+- Documentation: Maintain all reconciliation reports
+- Timeliness: Complete reconciliation by month-end + 5 days
+
+### Audit Trail
+- Date and preparer recorded
+- Adjustments documented with explanations
+- Approval signatures
+- Supporting attachments (bank statements, GL reports)
+
+## Cash Management Insights
+
+### Cash Flow Analysis
+- Average daily balance: Monitor trends
+- Seasonal patterns: Identify cyclical needs
+- Liquidity ratios: Current ratio, quick ratio
+- Cash burn rate: For startups/growth companies
+
+### Fraud Detection
+- Unusual transaction patterns
+- Duplicate transactions
+- Missing transactions
+- Unexpected payees
 
 ## Key Learnings
 
@@ -305,6 +334,19 @@ Bank Statement (CSV) → Import & Parse
 - Automatic NSF fee handling
 - Credit card reconciliation
 - ACH reconciliation
-- Integration with accounting software APIs
+- Integration with accounting software
 - Anomaly detection (unusual transactions)
 - Year-end reconciliation checklist
+
+## Demonstrates Expertise In
+
+- Bank reconciliation procedures
+- Outstanding check and deposit management
+- Variance analysis and investigation
+- Cash management and liquidity monitoring
+- Internal controls and fraud detection
+- Timing difference identification
+- Bank statement analysis
+- GL transaction verification
+- Exception handling and resolution
+- Month-end closing procedures
